@@ -20,6 +20,7 @@
 		CD76A2941A6A6E7A0001BD69 /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A28F1A6A6E7A0001BD69 /* ytcpsocket.swift */; };
 		CD76A2951A6A6E7A0001BD69 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = CD76A2901A6A6E7A0001BD69 /* yudpsocket.c */; };
 		CD76A2961A6A6E7A0001BD69 /* yudpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A2911A6A6E7A0001BD69 /* yudpsocket.swift */; };
+		CD76A2981A6AA4320001BD69 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A2971A6AA4320001BD69 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		CD76A28F1A6A6E7A0001BD69 /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
 		CD76A2901A6A6E7A0001BD69 /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
 		CD76A2911A6A6E7A0001BD69 /* yudpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yudpsocket.swift; sourceTree = "<group>"; };
+		CD76A2971A6AA4320001BD69 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			children = (
 				CD76A28C1A6A6E7A0001BD69 /* ysocket */,
 				CD76A2681A6A54B10001BD69 /* AppDelegate.swift */,
+				CD76A2971A6AA4320001BD69 /* TabBarController.swift */,
 				CD76A26A1A6A54B10001BD69 /* FirstViewController.swift */,
 				CD76A26C1A6A54B10001BD69 /* SecondViewController.swift */,
 				CD76A28A1A6A68410001BD69 /* xValueTableViewCell.swift */,
@@ -244,6 +247,7 @@
 				CD76A2951A6A6E7A0001BD69 /* yudpsocket.c in Sources */,
 				CD76A28B1A6A68410001BD69 /* xValueTableViewCell.swift in Sources */,
 				CD76A26D1A6A54B10001BD69 /* SecondViewController.swift in Sources */,
+				CD76A2981A6AA4320001BD69 /* TabBarController.swift in Sources */,
 				CD76A2691A6A54B10001BD69 /* AppDelegate.swift in Sources */,
 				CD76A2921A6A6E7A0001BD69 /* ysocket.swift in Sources */,
 				CD76A2931A6A6E7A0001BD69 /* ytcpsocket.c in Sources */,

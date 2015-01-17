@@ -8,10 +8,12 @@
 
 import UIKit
 import CoreMotion
+import SystemConfiguration
 
 class FirstViewController: UIViewController {
 
     @IBOutlet weak var AttributeTable: UITableView!
+    @IBOutlet weak var UDPSwitchBut: UIButton!
     
     let accelerometerMin: NSTimeInterval = 0.01
     var motionManager = CMMotionManager()
@@ -21,9 +23,13 @@ class FirstViewController: UIViewController {
     var ay: Double = 0.0
     var az: Double = 0.0
     
+    var tabBarCtrl: TabBarController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.tabBarCtrl = self.tabBarController as TabBarController
+        
         AttributeTable.dataSource = self
     }
 
@@ -34,8 +40,14 @@ class FirstViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        openUDP()
-        startMotionUpdate(20)
+        
+        self.serverIP = tabBarCtrl.server_ip
+        self.port = tabBarCtrl.server_port
+        println("set ip as \(serverIP):\(port)")
+        
+        tabBarCtrl.clientClosed = true
+//        openUDP()
+//        startMotionUpdate(20)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -45,9 +57,9 @@ class FirstViewController: UIViewController {
     
     // MARK: UDP
     var client: UDPClient!
-    var serverIP:String = "192.168.2.138"
-    var port: Int = 8080
-    var clientClosed = false
+    var serverIP:String = "localhost"
+    var port: Int = 8888
+//    var clientClosed = false
     var udpData: [Double] = []
     let packSize = 3 // the number of parameter in a pack
                      // for example 3 for (ax, ay, az)
@@ -58,11 +70,17 @@ class FirstViewController: UIViewController {
 
     func openUDP() {
         client = UDPClient(addr: self.serverIP, port: self.port)
-        clientClosed = false
+        tabBarCtrl.clientClosed = false
         NSLog("open UDP")
+        startMotionUpdate(20)
+        // TODO: add a button to start the update. If not updating do not open the udp!
+        NSLog("start motion update")
     }
     
     func closeUDP() -> Bool {
+        if tabBarCtrl.clientClosed {
+            return tabBarCtrl.clientClosed
+        }
         var success = false
         var msg = ""
         var i: Int32 = -1
@@ -70,13 +88,16 @@ class FirstViewController: UIViewController {
         if !success {
             println("send 'Exit' failed: \(msg)")
         }
-        (clientClosed, msg) = client.close()
-        if !clientClosed {
+        
+        (tabBarCtrl.clientClosed, msg) = client.close()
+        if !tabBarCtrl.clientClosed {
             println("close UDP failed: \(msg)")
         } else {
             NSLog("close UDP success")
+            dispatch_async(dispatch_get_main_queue(), {self.UDPSwitchBut.setTitle("Open", forState: .Normal)})
         }
-        return clientClosed
+        
+        return tabBarCtrl.clientClosed
     }
     
     
@@ -92,7 +113,7 @@ class FirstViewController: UIViewController {
                 self.ay = deviceMotion.userAcceleration.y
                 self.az = deviceMotion.userAcceleration.z
                 
-                if !self.clientClosed {
+                if !self.tabBarCtrl.clientClosed {
                     self.sendDataPack(requiredLength: self.defaultPackNum)
                 }
                 
@@ -123,6 +144,9 @@ class FirstViewController: UIViewController {
                 (success, msg) = self.client.send(data: NSData(bytes: &self.indexForUDP, length: sizeof(Int32))) // TODO: need to change in matlab
                 if !success {
                     println("send index failed: \(msg)")
+//                    if msg == "socket not open" {
+                        self.closeUDP()
+//                    }
                     return
                 }
                 /* send size of data */
@@ -161,13 +185,11 @@ class FirstViewController: UIViewController {
 
     @IBAction func UDPSwitchTapped(sender: AnyObject) {
         let but = sender as UIButton
-        if clientClosed {
+        if tabBarCtrl.clientClosed {
             openUDP()
             but.setTitle("Close", forState: .Normal)
         } else {
-            if closeUDP() {
-                but.setTitle("Open ", forState: .Normal)
-            }
+            closeUDP()
         }
     }
     
@@ -211,5 +233,6 @@ extension FirstViewController: UITableViewDataSource {
             return cell!
         }
     }
+    
 }
 
