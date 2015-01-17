@@ -66,8 +66,11 @@ try
             indexArray = [indexArray(2:end), index - (sizeOfData/packsize - i)];
             dataArray  = [dataArray(:,2:end), data((1:3) + (i-1)*packsize)];
         end
+        % draw
         plot(indexArray, dataArray);
+        axis tight
         drawnow
+        
         if sizeOfData/packsize > 10 
             pause(1) % wait for data ready
         end
