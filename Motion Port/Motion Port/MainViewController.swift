@@ -186,7 +186,9 @@ class MainViewController: UIViewController {
     }
     
     func cleanUDPData() {
-        self.udpData.removeAll(keepCapacity: true)
+        if udpData.count > 0 {
+            self.udpData.removeAll(keepCapacity: true)
+        }
     }
 
     @IBAction func UDPSwitchTapped(sender: AnyObject) {

@@ -112,6 +112,27 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
         tabBarCtrl.pack_num = default_packnum
         tabBarCtrl.updateFreq = default_frequency
     }
+    var waitingConnect: Bool = false
+    @IBAction func AutoConnectTapped(sender: UIButton) {
+        var client:UDPClient=UDPClient(addr: "255.255.255.255", port: 8080)
+        NSLog("send hello msg")
+        var (success, msg) = client.send(str: "MOTION PORT") // TODO: send more useful data
+        if !success {
+            println("\(success): \(msg)")
+        }
+        client.close()
+        if !waitingConnect {
+            waitingConnect = true
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                // wating connection (echo)
+                var server: UDPServer = UDPServer(addr: "0.0.0.0", port: 8081)
+                var (data, rip, rport) = server.recv(1024)
+                NSLog("received from IP:\(rip) port\(rport) \(data)") // TODO: configure IP with this data
+                server.close()
+                self.waitingConnect = false
+            })
+        }
+    }
 
 }
 

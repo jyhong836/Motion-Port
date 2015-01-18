@@ -76,6 +76,8 @@ int yudpsocket_client(){
     int socketfd=socket(AF_INET, SOCK_DGRAM, 0);
     int reuseon   = 1;
     setsockopt( socketfd, SOL_SOCKET, SO_REUSEADDR, &reuseon, sizeof(reuseon) );
+    int so_broadcast = 1;
+    setsockopt( socketfd, SOL_SOCKET, SO_BROADCAST, &so_broadcast, sizeof(so_broadcast));
     return socketfd;
 }
 int yudpsocket_get_server_ip(char *host,char *ip){

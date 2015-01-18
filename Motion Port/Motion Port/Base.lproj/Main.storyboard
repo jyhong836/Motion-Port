@@ -190,7 +190,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-mf-CSv">
-                                <rect key="frame" x="109" y="165" width="159" height="31"/>
+                                <rect key="frame" x="109" y="165" width="158.5" height="31"/>
                                 <connections>
                                     <action selector="PackNumValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="epv-p0-1nZ"/>
                                 </connections>
@@ -217,7 +217,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
-                                <rect key="frame" x="108" y="219" width="159" height="31"/>
+                                <rect key="frame" x="108" y="219" width="158.5" height="31"/>
                                 <connections>
                                     <action selector="FreqValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="S4i-i2-lcg"/>
                                 </connections>
@@ -238,6 +238,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-2O-oUj">
+                                <rect key="frame" x="113" y="460" width="95" height="30"/>
+                                <state key="normal" title="Auto Connect">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="AutoConnectTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="i0N-8S-ovf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -248,6 +257,7 @@
                             <constraint firstItem="4Ew-Cx-ccd" firstAttribute="centerY" secondItem="c6b-Ha-iG9" secondAttribute="centerY" constant="0.75" id="C09-pz-ucg"/>
                             <constraint firstItem="c6b-Ha-iG9" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="41" id="FoX-rL-ZBD"/>
                             <constraint firstItem="dYS-Et-OZi" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="Gb6-lC-ELe"/>
+                            <constraint firstAttribute="centerX" secondItem="JAc-2O-oUj" secondAttribute="centerX" constant="-0.5" id="HBp-Kd-hFj"/>
                             <constraint firstItem="6Lh-ZL-Vg1" firstAttribute="centerY" secondItem="nqZ-V2-egj" secondAttribute="centerY" constant="-0.75" id="HWe-vH-LDU"/>
                             <constraint firstItem="zlf-L8-sKK" firstAttribute="centerY" secondItem="dYS-Et-OZi" secondAttribute="centerY" constant="-0.75" id="Jpk-8e-gAj"/>
                             <constraint firstItem="a7x-k3-JDP" firstAttribute="top" secondItem="rBs-EG-5cx" secondAttribute="bottom" constant="38" id="KPx-GX-ySd"/>
@@ -267,6 +277,7 @@
                             <constraint firstAttribute="centerX" secondItem="rBs-EG-5cx" secondAttribute="centerX" id="lCQ-mx-591"/>
                             <constraint firstItem="zlf-L8-sKK" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="m5s-6Z-pmb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fUY-Uf-J5q" secondAttribute="trailing" constant="5" id="sAx-S6-3HD"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="JAc-2O-oUj" secondAttribute="bottom" constant="29" id="uaD-vD-RLm"/>
                             <constraint firstItem="dYS-Et-OZi" firstAttribute="leading" secondItem="zlf-L8-sKK" secondAttribute="trailing" constant="51" id="udL-DR-qJS"/>
                             <constraint firstItem="6Lh-ZL-Vg1" firstAttribute="leading" secondItem="nqZ-V2-egj" secondAttribute="trailing" constant="13.5" id="wUl-et-HNr"/>
                             <constraint firstItem="Qfc-r3-ApP" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="xtj-rQ-w9W"/>
