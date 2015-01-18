@@ -72,7 +72,7 @@ class FirstViewController: UIViewController {
         client = UDPClient(addr: self.serverIP, port: self.port)
         tabBarCtrl.clientClosed = false
         NSLog("open UDP")
-        startMotionUpdate(20)
+        startMotionUpdate(updateFrequency: 20)
         // TODO: add a button to start the update. If not updating do not open the udp!
         NSLog("start motion update")
     }
@@ -101,14 +101,19 @@ class FirstViewController: UIViewController {
     }
     
     
-    func startMotionUpdate(slideValue: Int) {
+    func startMotionUpdate(updateFrequency freq: Int) {
         let delta: NSTimeInterval = 0.005
-        let UpdateInterval: NSTimeInterval = accelerometerMin + delta * Double(slideValue)
+        let UpdateInterval: NSTimeInterval = 1 / Double(freq) //accelerometerMin + delta * Double(slideValue)
+        if UpdateInterval < accelerometerMin {
+            println("WARN: update interval is too short: \(UpdateInterval) (max frequency is 100Hz)")
+        }
         
         if motionManager.deviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = UpdateInterval
             motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: {
+                // Device Motion Block
                 (deviceMotion: CMDeviceMotion!,  error:NSError!) in
+                
                 self.ax = deviceMotion.userAcceleration.x
                 self.ay = deviceMotion.userAcceleration.y
                 self.az = deviceMotion.userAcceleration.z
@@ -116,15 +121,6 @@ class FirstViewController: UIViewController {
                 if !self.tabBarCtrl.clientClosed {
                     self.sendDataPack(/*requiredPackCount: self.tabBarCtrl.pack_num*/) //self.defaultPackNum)
                 }
-                
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    () -> Void in
-//                    self.CountLabel.text = "[\(self.dataIndex)] port: \(self.port)"
-//                    self.value1.text = NSString(format: "x: %3.2f cm/s2", self.ax*100)
-//                    self.value2.text = NSString(format: "y: %3.2f cm/s2", self.ay*100)
-//                    self.value3.text = NSString(format: "z: %3.2f cm/s2", self.az*100)
-//                    self.AttributeTable.setNeedsDisplay()
-//                })
             })
         } else {
             NSLog("device motion is not available")
@@ -180,7 +176,7 @@ class FirstViewController: UIViewController {
     }
     
     func cleanUDPData() {
-        udpData.removeAll(keepCapacity: true)
+        self.udpData.removeAll(keepCapacity: true)
     }
 
     @IBAction func UDPSwitchTapped(sender: AnyObject) {

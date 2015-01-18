@@ -31,7 +31,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         
         hostname.delegate = self
         hostport.delegate = self
-//        packnumVelueLabel.delegate  = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,10 +38,14 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        // TODO: save configure data to Core Data
+    }
+    
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         hostname.resignFirstResponder()
         hostport.resignFirstResponder()
-//        packnum.resignFirstResponder() 
     }
 
     @IBAction func HostEditEnd(sender: UITextField) {
