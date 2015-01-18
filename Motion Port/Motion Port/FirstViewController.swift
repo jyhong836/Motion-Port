@@ -19,6 +19,8 @@ class FirstViewController: UIViewController {
     var motionManager = CMMotionManager()
     
     var dataIndex:Int = 0
+    var start_timestamp: Double = 0
+    var timestamp: Double = 0
     var ax: Double = 0.0
     var ay: Double = 0.0
     var az: Double = 0.0
@@ -105,6 +107,7 @@ class FirstViewController: UIViewController {
         let delta: NSTimeInterval = 0.005
         let UpdateInterval: NSTimeInterval = 1 / Double(freq) //accelerometerMin + delta * Double(slideValue)
         if UpdateInterval < accelerometerMin {
+            // TODO: Determine the real update interval of the hardware
             println("WARN: update interval is too short: \(UpdateInterval) (max frequency is 100Hz)")
         }
         
@@ -113,6 +116,12 @@ class FirstViewController: UIViewController {
             motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: {
                 // Device Motion Block
                 (deviceMotion: CMDeviceMotion!,  error:NSError!) in
+                if self.start_timestamp == 0 {
+                    self.start_timestamp = deviceMotion.timestamp // MARK: set start timestamp
+                }
+                
+                self.timestamp = deviceMotion.timestamp - self.start_timestamp
+//                println("timestamp \(self.timestamp)")
                 
                 self.ax = deviceMotion.userAcceleration.x
                 self.ay = deviceMotion.userAcceleration.y
