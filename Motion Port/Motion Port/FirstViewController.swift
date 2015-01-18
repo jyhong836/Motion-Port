@@ -61,7 +61,7 @@ class FirstViewController: UIViewController {
     var client: UDPClient!
     var serverIP:String = "localhost"
     var port: Int = 8888
-    var udpData: [Double] = []
+    var udpData: [Float] = []
     // MARK: pack include (timestamp, ax, ay, az)
     let packSize = 4 // the number of parameter in a pack
                      // for example 3 for (ax, ay, az)
@@ -160,7 +160,7 @@ class FirstViewController: UIViewController {
                     return
                 }
                 /* send data */
-                let udpData: NSData = NSData(bytes: self.udpData, length: sizeof(Double)*self.udpData.count)
+                let udpData: NSData = NSData(bytes: self.udpData, length: sizeof(Float)*self.udpData.count)
                 
                 (success, msg) = self.client.send(data: udpData)
                 if success {
@@ -170,11 +170,10 @@ class FirstViewController: UIViewController {
                 }
             })
         } else if udpData.count < self.tabBarCtrl.pack_num * packSize {
-            // TODO: change data type to float
-            udpData.append(timestamp) // send timestamp
-            udpData.append(ax)
-            udpData.append(ay)
-            udpData.append(az)
+            udpData.append(Float(timestamp)) // send timestamp
+            udpData.append(Float(ax))
+            udpData.append(Float(ay))
+            udpData.append(Float(az))
 //            println("[\(self.dataIndex).\(udpData.count/packSize)/\(len)] store x \(self.ax) y \(self.ay) z \(self.az)")
             self.dataIndex++
         } else /*if udpData.count > self.tabBarCtrl.pack_num * packSize*/ {
