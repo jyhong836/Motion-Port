@@ -4,8 +4,8 @@ function [  ] = MotionLab( ) % ip, port )
 
 port = 8080;
 
-indexArray = zeros(1,200);
-dataArray = zeros(3,200);
+indexArray = zeros(1,600);
+dataArray = zeros(3,600);
 dataArray(:,:) = nan;
 packsize = 4; % for (ax, ay, az) the packsize = 3
 
@@ -44,9 +44,9 @@ try
         disp(['received data from ' datagramaddress ': ' num2str(datagramport)]);
         
         % get data size
-        [sizeOfData,count] = fread(udpObj, 1, 'int8');
+        [sizeOfData, count] = fread(udpObj, 1, 'int32');
         if count~=1
-            disp(['sz count error: ' num2str(count) '~= 3']);
+            disp(['error when get data size: count = ' num2str(count)]);
             flushinput(udpObj);
             continue
         else
