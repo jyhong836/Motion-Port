@@ -7,7 +7,7 @@ port = 8080;
 indexArray = zeros(1,200);
 dataArray = zeros(3,200);
 dataArray(:,:) = nan;
-packsize = 3; % for (ax, ay, az) the packsize = 3
+packsize = 4; % for (ax, ay, az) the packsize = 3
 
 % echoudp('on', 8083);
 udpObj = udp('localhost', 8081);
@@ -63,8 +63,8 @@ try
         % fwrite(udpObj,'hello');
         disp(['received: [' num2str(index - sizeOfData/packsize+1) '~' num2str(index) '] ']); % num2str(data')]);
         for i = 1:(sizeOfData/packsize) 
-            indexArray = [indexArray(2:end), index - (sizeOfData/packsize - i)];
-            dataArray  = [dataArray(:,2:end), data((1:3) + (i-1)*packsize)];
+            indexArray = [indexArray(2:end), data(1 + (i-1)*packsize)]; %index - (sizeOfData/packsize - i)];
+            dataArray  = [dataArray(:,2:end), data((2:4) + (i-1)*packsize)];
         end
         % draw
         plot(indexArray, dataArray);
