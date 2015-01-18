@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UITextFieldDelegate {
+class ConfigureViewController: UIViewController, UITextFieldDelegate {
     
     let default_hostname = "127.0.0.1"
     let default_hostport = 8080
-    let default_packnum  = 10
-    let default_frequency = 50
+    let default_packnum  = 50
+    let default_frequency = 50 // packnum should larger than freq
     
     @IBOutlet weak var hostname: UITextField!
     @IBOutlet weak var hostport: UITextField!

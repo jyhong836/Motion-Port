@@ -10,7 +10,7 @@ import UIKit
 import CoreMotion
 import SystemConfiguration
 
-class FirstViewController: UIViewController {
+class MainViewController: UIViewController {
 
     @IBOutlet weak var AttributeTable: UITableView!
     @IBOutlet weak var UDPSwitchBut: UIButton!
@@ -202,7 +202,7 @@ class FirstViewController: UIViewController {
 }
 
 // MARK: Tabele View Data Source
-extension FirstViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CD76A2691A6A54B10001BD69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A2681A6A54B10001BD69 /* AppDelegate.swift */; };
-		CD76A26B1A6A54B10001BD69 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A26A1A6A54B10001BD69 /* FirstViewController.swift */; };
-		CD76A26D1A6A54B10001BD69 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A26C1A6A54B10001BD69 /* SecondViewController.swift */; };
+		CD76A26B1A6A54B10001BD69 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A26A1A6A54B10001BD69 /* MainViewController.swift */; };
+		CD76A26D1A6A54B10001BD69 /* ConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD76A26C1A6A54B10001BD69 /* ConfigureViewController.swift */; };
 		CD76A2701A6A54B10001BD69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD76A26E1A6A54B10001BD69 /* Main.storyboard */; };
 		CD76A2721A6A54B10001BD69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD76A2711A6A54B10001BD69 /* Images.xcassets */; };
 		CD76A2751A6A54B10001BD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD76A2731A6A54B10001BD69 /* LaunchScreen.xib */; };
@@ -37,8 +37,8 @@
 		CD76A2631A6A54B10001BD69 /* Motion Port.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Motion Port.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD76A2671A6A54B10001BD69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD76A2681A6A54B10001BD69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CD76A26A1A6A54B10001BD69 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		CD76A26C1A6A54B10001BD69 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		CD76A26A1A6A54B10001BD69 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		CD76A26C1A6A54B10001BD69 /* ConfigureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureViewController.swift; sourceTree = "<group>"; };
 		CD76A26F1A6A54B10001BD69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CD76A2711A6A54B10001BD69 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CD76A2741A6A54B10001BD69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -96,8 +96,8 @@
 				CD76A28C1A6A6E7A0001BD69 /* ysocket */,
 				CD76A2681A6A54B10001BD69 /* AppDelegate.swift */,
 				CD76A2971A6AA4320001BD69 /* TabBarController.swift */,
-				CD76A26A1A6A54B10001BD69 /* FirstViewController.swift */,
-				CD76A26C1A6A54B10001BD69 /* SecondViewController.swift */,
+				CD76A26A1A6A54B10001BD69 /* MainViewController.swift */,
+				CD76A26C1A6A54B10001BD69 /* ConfigureViewController.swift */,
 				CD76A28A1A6A68410001BD69 /* xValueTableViewCell.swift */,
 				CD76A26E1A6A54B10001BD69 /* Main.storyboard */,
 				CD76A2711A6A54B10001BD69 /* Images.xcassets */,
@@ -246,14 +246,14 @@
 			files = (
 				CD76A2951A6A6E7A0001BD69 /* yudpsocket.c in Sources */,
 				CD76A28B1A6A68410001BD69 /* xValueTableViewCell.swift in Sources */,
-				CD76A26D1A6A54B10001BD69 /* SecondViewController.swift in Sources */,
+				CD76A26D1A6A54B10001BD69 /* ConfigureViewController.swift in Sources */,
 				CD76A2981A6AA4320001BD69 /* TabBarController.swift in Sources */,
 				CD76A2691A6A54B10001BD69 /* AppDelegate.swift in Sources */,
 				CD76A2921A6A6E7A0001BD69 /* ysocket.swift in Sources */,
 				CD76A2931A6A6E7A0001BD69 /* ytcpsocket.c in Sources */,
 				CD76A2961A6A6E7A0001BD69 /* yudpsocket.swift in Sources */,
 				CD76A2941A6A6E7A0001BD69 /* ytcpsocket.swift in Sources */,
-				CD76A26B1A6A54B10001BD69 /* FirstViewController.swift in Sources */,
+				CD76A26B1A6A54B10001BD69 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
