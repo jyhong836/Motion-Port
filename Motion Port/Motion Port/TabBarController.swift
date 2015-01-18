@@ -12,6 +12,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     var server_ip = "192.168.1.5"// "192.168.2.138"
     var server_port = 8080
+    var pack_num = 10
     
     var clientClosed = false
 

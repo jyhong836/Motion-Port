@@ -43,7 +43,7 @@ class FirstViewController: UIViewController {
         
         self.serverIP = tabBarCtrl.server_ip
         self.port = tabBarCtrl.server_port
-        println("set ip as \(serverIP):\(port)")
+        println("set ip as \(serverIP):\(port) pack num: \(tabBarCtrl.pack_num)")
         
         tabBarCtrl.clientClosed = true
 //        openUDP()
@@ -63,7 +63,7 @@ class FirstViewController: UIViewController {
     var udpData: [Double] = []
     let packSize = 3 // the number of parameter in a pack
                      // for example 3 for (ax, ay, az)
-    let defaultPackNum = 20
+//    let defaultPackNum = 20
     // temp saved msg
     var packCount = 0
     var indexForUDP: Int32 = 0
@@ -114,7 +114,7 @@ class FirstViewController: UIViewController {
                 self.az = deviceMotion.userAcceleration.z
                 
                 if !self.tabBarCtrl.clientClosed {
-                    self.sendDataPack(requiredLength: self.defaultPackNum)
+                    self.sendDataPack(/*requiredPackCount: self.tabBarCtrl.pack_num*/) //self.defaultPackNum)
                 }
                 
 //                dispatch_async(dispatch_get_main_queue(), {
@@ -131,9 +131,9 @@ class FirstViewController: UIViewController {
         }
     }
     
-    func sendDataPack(requiredLength len: Int) -> Bool {
-        if udpData.count == len * packSize {
-            self.packCount = self.dataIndex / self.defaultPackNum
+    func sendDataPack(/*requiredPackNum len: Int*/) -> Bool {
+        if udpData.count == self.tabBarCtrl.pack_num * packSize {
+            self.packCount = self.dataIndex / self.tabBarCtrl.pack_num
             indexForUDP = Int32(dataIndex)
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
                 () -> Void in
@@ -165,13 +165,13 @@ class FirstViewController: UIViewController {
                     dispatch_async(dispatch_get_main_queue(), {self.AttributeTable.reloadData()})
                 }
             })
-        } else if udpData.count < len * packSize {
+        } else if udpData.count < self.tabBarCtrl.pack_num * packSize {
             udpData.append(ax)
             udpData.append(ay)
             udpData.append(az)
 //            println("[\(self.dataIndex).\(udpData.count/packSize)/\(len)] store x \(self.ax) y \(self.ay) z \(self.az)")
             self.dataIndex++
-        } else if udpData.count > len * packSize {
+        } else /*if udpData.count > self.tabBarCtrl.pack_num * packSize*/ {
             println("Data is out of pack size for Unkonwn Reason! Clen them!")
             cleanUDPData()
             return false
@@ -212,13 +212,13 @@ extension FirstViewController: UITableViewDataSource {
             switch(indexPath.row) {
             case 1:
                 cell!.title.text = "x"
-                cell!.valueText.text = NSString(format: "%3.2lf", ax*100)
+                cell!.valueText.text = NSString(format: "%5.4lf", ax*100)
             case 2:
                 cell!.title.text = "y"
-                cell!.valueText.text = NSString(format: "%3.2lf", ay*100)
+                cell!.valueText.text = NSString(format: "%5.4lf", ay*100)
             case 3:
                 cell!.title.text = "z"
-                cell!.valueText.text = NSString(format: "%3.2lf", az*100)
+                cell!.valueText.text = NSString(format: "%5.4lf", az*100)
             default:
                 break
             }
