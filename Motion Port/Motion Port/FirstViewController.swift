@@ -45,7 +45,7 @@ class FirstViewController: UIViewController {
         
         self.serverIP = tabBarCtrl.server_ip
         self.port = tabBarCtrl.server_port
-        println("set ip as \(serverIP):\(port) pack num: \(tabBarCtrl.pack_num)")
+        println("set ip as \(serverIP):\(port) pack num: \(tabBarCtrl.pack_num) freq: \(tabBarCtrl.updateFreq)")
         
         tabBarCtrl.clientClosed = true
 //        openUDP()
@@ -73,7 +73,7 @@ class FirstViewController: UIViewController {
         client = UDPClient(addr: self.serverIP, port: self.port)
         tabBarCtrl.clientClosed = false
         NSLog("open UDP")
-        startMotionUpdate(updateFrequency: 20)
+        startMotionUpdate(updateFrequency: tabBarCtrl.updateFreq)
         // TODO: add a button to start the update. If not updating do not open the udp!
         NSLog("start motion update")
     }
@@ -145,7 +145,7 @@ class FirstViewController: UIViewController {
                 var success = false
                 var msg = ""
                 /* send the last index of the pack */
-                (success, msg) = self.client.send(data: NSData(bytes: &self.indexForUDP, length: sizeof(Int32))) // TODO: need to change in matlab
+                (success, msg) = self.client.send(data: NSData(bytes: &self.indexForUDP, length: sizeof(Int32)))
                 if !success {
                     println("send index failed: \(msg)")
 //                    if msg == "socket not open" {
@@ -154,15 +154,16 @@ class FirstViewController: UIViewController {
                     return
                 }
                 /* send size of data */
-                (success, msg) = self.client.send(data: [UInt8(self.udpData.count)])
+                var dtCount = Int32(self.udpData.count)
+                (success, msg) = self.client.send(data: NSData(bytes: &dtCount, length: sizeof(Int32)))//[UInt8(self.udpData.count)])
                 if !success {
                     println("send data size failed: \(msg)")
                     return
                 }
                 /* send data */
-                let udpData: NSData = NSData(bytes: self.udpData, length: sizeof(Float)*self.udpData.count)
+                let dt: NSData = NSData(bytes: self.udpData, length: sizeof(Float)*self.udpData.count)
                 
-                (success, msg) = self.client.send(data: udpData)
+                (success, msg) = self.client.send(data: dt)
                 if success {
                     self.cleanUDPData()
 //                    self.AttributeTable.setNeedsDisplay() // Update Table View

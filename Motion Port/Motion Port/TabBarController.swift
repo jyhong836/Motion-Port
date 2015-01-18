@@ -10,9 +10,11 @@ import UIKit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
+    // global configures
     var server_ip = "192.168.1.8"// "192.168.2.138"
     var server_port = 8080
-    var pack_num = 20
+    var pack_num = 50
+    var updateFreq = 50
     
     var clientClosed = false
 

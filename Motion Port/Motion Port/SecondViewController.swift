@@ -13,11 +13,14 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     let default_hostname = "127.0.0.1"
     let default_hostport = 8080
     let default_packnum  = 10
+    let default_frequency = 50
     
     @IBOutlet weak var hostname: UITextField!
     @IBOutlet weak var hostport: UITextField!
     @IBOutlet weak var packnumVelueLabel: UILabel!
     @IBOutlet weak var packNumSlider: UISlider!
+    @IBOutlet weak var freqSlider: UISlider!
+    @IBOutlet weak var freqValueLabel: UILabel!
     
     var tabBarCtrl: TabBarController!
     
@@ -28,6 +31,9 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         hostname.text = tabBarCtrl.server_ip
         hostport.text = "\(tabBarCtrl.server_port)"
         packnumVelueLabel.text = "\(tabBarCtrl.pack_num)"
+        packNumSlider.value = Float(tabBarCtrl.pack_num)
+        freqValueLabel.text = "\(tabBarCtrl.updateFreq)"
+        freqSlider.value = Float(default_frequency)
         
         hostname.delegate = self
         hostport.delegate = self
@@ -65,6 +71,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         self.tabBarCtrl.pack_num = Int(sender.value)
     }
     
+    @IBAction func FreqValueChg(sender: UISlider) {
+        self.freqValueLabel.text = "\(Int(sender.value))"
+        self.tabBarCtrl.updateFreq = Int(sender.value)
+    }
+    
     func isCorrectIP(ip: String) -> Bool {
         // TODO: check if is correct ip
         return true
@@ -80,10 +91,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         hostport.text = "\(default_hostport)"
         packnumVelueLabel.text = "\(default_packnum)"
         packNumSlider.value = Float(default_packnum)
+        freqValueLabel.text = "\(default_frequency)"
+        freqSlider.value = Float(default_frequency)
         
         tabBarCtrl.server_ip = default_hostname
         tabBarCtrl.server_port = default_hostport
         tabBarCtrl.pack_num = default_packnum
+        tabBarCtrl.updateFreq = default_frequency
     }
 
 }
