@@ -54,7 +54,7 @@ try
         end
         
         % get data
-        [data, count] = fread(udpObj,sizeOfData,'double');
+        [data, count] = fread(udpObj,sizeOfData,'float');
         if count~=sizeOfData
             disp(['data count error: ' num2str(count) ' expected: ' num2str(sizeOfData)]);
             flushinput(udpObj);
