@@ -4,10 +4,10 @@ function [  ] = MotionLab( ) % ip, port )
 
 port = 8080;
 
-indexArray = zeros(1,200);
-dataArray = zeros(3,200);
+indexArray = zeros(1,600);
+dataArray = zeros(3,600);
 dataArray(:,:) = nan;
-packsize = 3; % for (ax, ay, az) the packsize = 3
+packsize = 4; % for (ax, ay, az) the packsize = 3
 
 % echoudp('on', 8083);
 udpObj = udp('localhost', 8081);
@@ -44,9 +44,9 @@ try
         disp(['received data from ' datagramaddress ': ' num2str(datagramport)]);
         
         % get data size
-        [sizeOfData,count] = fread(udpObj, 1, 'int8');
+        [sizeOfData, count] = fread(udpObj, 1, 'int32');
         if count~=1
-            disp(['sz count error: ' num2str(count) '~= 3']);
+            disp(['error when get data size: count = ' num2str(count)]);
             flushinput(udpObj);
             continue
         else
@@ -54,7 +54,7 @@ try
         end
         
         % get data
-        [data, count] = fread(udpObj,sizeOfData,'double');
+        [data, count] = fread(udpObj,sizeOfData,'float');
         if count~=sizeOfData
             disp(['data count error: ' num2str(count) ' expected: ' num2str(sizeOfData)]);
             flushinput(udpObj);
@@ -63,8 +63,8 @@ try
         % fwrite(udpObj,'hello');
         disp(['received: [' num2str(index - sizeOfData/packsize+1) '~' num2str(index) '] ']); % num2str(data')]);
         for i = 1:(sizeOfData/packsize) 
-            indexArray = [indexArray(2:end), index - (sizeOfData/packsize - i)];
-            dataArray  = [dataArray(:,2:end), data((1:3) + (i-1)*packsize)];
+            indexArray = [indexArray(2:end), data(1 + (i-1)*packsize)]; %index - (sizeOfData/packsize - i)];
+            dataArray  = [dataArray(:,2:end), data((2:4) + (i-1)*packsize)];
         end
         % draw
         plot(indexArray, dataArray);
