@@ -61,11 +61,10 @@ class FirstViewController: UIViewController {
     var client: UDPClient!
     var serverIP:String = "localhost"
     var port: Int = 8888
-//    var clientClosed = false
     var udpData: [Double] = []
-    let packSize = 3 // the number of parameter in a pack
+    // MARK: pack include (timestamp, ax, ay, az)
+    let packSize = 4 // the number of parameter in a pack
                      // for example 3 for (ax, ay, az)
-//    let defaultPackNum = 20
     // temp saved msg
     var packCount = 0
     var indexForUDP: Int32 = 0
@@ -108,7 +107,7 @@ class FirstViewController: UIViewController {
         let UpdateInterval: NSTimeInterval = 1 / Double(freq) //accelerometerMin + delta * Double(slideValue)
         if UpdateInterval < accelerometerMin {
             // TODO: Determine the real update interval of the hardware
-            println("WARN: update interval is too short: \(UpdateInterval) (max frequency is 100Hz)")
+            println("WARN: update frequency is too high: \(UpdateInterval) (max frequency is 100Hz)")
         }
         
         if motionManager.deviceMotionAvailable {
@@ -171,6 +170,8 @@ class FirstViewController: UIViewController {
                 }
             })
         } else if udpData.count < self.tabBarCtrl.pack_num * packSize {
+            // TODO: change data type to float
+            udpData.append(timestamp) // send timestamp
             udpData.append(ax)
             udpData.append(ay)
             udpData.append(az)
