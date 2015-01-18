@@ -24,6 +24,13 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
     
     var tabBarCtrl: TabBarController!
     
+    // MARK: URL predicate
+    let URLRegEx = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$" //服务器IP地址匹配格式，本格式来自网络
+    let portRegEx = "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$"; //服务器端口号匹配格式，本方式来自网络
+    
+    var urltest: NSPredicate!
+    var porttest: NSPredicate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -37,6 +44,9 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
         
         hostname.delegate = self
         hostport.delegate = self
+        
+        urltest = NSPredicate(format: "SELF MATCHES %@", URLRegEx)
+        porttest = NSPredicate(format: "SELF MATCHES %@", portRegEx)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,14 +65,22 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func HostEditEnd(sender: UITextField) {
-        if (isCorrectIP(sender.text)) {
+        if (urltest.evaluateWithObject(sender.text)) {
             tabBarCtrl.server_ip = sender.text
+        } else {
+            sender.text = tabBarCtrl.server_ip
+            sender.textColor = UIColor.redColor()
         }
     }
     
     @IBAction func PortEditEnd(sender: UITextField) {
-        if let p = sender.text.toInt() {
-            tabBarCtrl.server_port = p
+        if porttest.evaluateWithObject(sender.text) {
+            if let p = sender.text.toInt() {
+                tabBarCtrl.server_port = p
+            }
+        } else {
+            sender.text = "\(tabBarCtrl.server_port)"
+            sender.textColor = UIColor.redColor()
         }
     }
     
@@ -74,11 +92,6 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
     @IBAction func FreqValueChg(sender: UISlider) {
         self.freqValueLabel.text = "\(Int(sender.value))"
         self.tabBarCtrl.updateFreq = Int(sender.value)
-    }
-    
-    func isCorrectIP(ip: String) -> Bool {
-        // TODO: check if is correct ip
-        return true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

@@ -53,15 +53,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="10A-XI-XUe" id="lxg-3t-cbD">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUE-6V-MZt">
-                                                    <rect key="frame" x="8" y="11" width="13" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="13" id="rfK-V4-qMx"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0.0001" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRE-mW-91X">
                                                     <rect key="frame" x="116" y="11" width="101" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -77,17 +68,26 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUE-6V-MZt">
+                                                    <rect key="frame" x="16" y="11" width="13" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="13" id="rfK-V4-qMx"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="KaX-tb-jGW" firstAttribute="leading" secondItem="sRE-mW-91X" secondAttribute="trailing" constant="15" id="0bq-kj-9gY"/>
                                                 <constraint firstItem="UUE-6V-MZt" firstAttribute="baseline" secondItem="sRE-mW-91X" secondAttribute="baseline" id="33a-VL-RN2"/>
                                                 <constraint firstItem="UUE-6V-MZt" firstAttribute="centerY" secondItem="lxg-3t-cbD" secondAttribute="centerY" id="3UA-Ef-utT"/>
                                                 <constraint firstItem="UUE-6V-MZt" firstAttribute="top" secondItem="lxg-3t-cbD" secondAttribute="topMargin" constant="3" id="7d5-p3-S7K"/>
-                                                <constraint firstItem="sRE-mW-91X" firstAttribute="leading" secondItem="UUE-6V-MZt" secondAttribute="trailing" constant="95" id="8k4-vL-qRm"/>
+                                                <constraint firstItem="sRE-mW-91X" firstAttribute="leading" secondItem="UUE-6V-MZt" secondAttribute="trailing" constant="87" id="8k4-vL-qRm"/>
                                                 <constraint firstItem="KaX-tb-jGW" firstAttribute="firstBaseline" secondItem="sRE-mW-91X" secondAttribute="firstBaseline" id="Jx6-oq-wdH"/>
                                                 <constraint firstItem="sRE-mW-91X" firstAttribute="baseline" secondItem="KaX-tb-jGW" secondAttribute="baseline" id="LKi-nq-uy9"/>
                                                 <constraint firstItem="KaX-tb-jGW" firstAttribute="trailing" secondItem="lxg-3t-cbD" secondAttribute="trailingMargin" id="SlT-Tu-g7R"/>
-                                                <constraint firstItem="UUE-6V-MZt" firstAttribute="leading" secondItem="lxg-3t-cbD" secondAttribute="leadingMargin" id="StB-C1-LV2"/>
+                                                <constraint firstItem="UUE-6V-MZt" firstAttribute="leading" secondItem="lxg-3t-cbD" secondAttribute="leadingMargin" constant="8" id="StB-C1-LV2"/>
                                                 <constraint firstItem="sRE-mW-91X" firstAttribute="firstBaseline" secondItem="UUE-6V-MZt" secondAttribute="firstBaseline" id="b9i-Ko-j3Q"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -158,7 +158,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Host name or IP" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4Ew-Cx-ccd">
                                 <rect key="frame" x="99" y="57" width="205" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="light" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" keyboardAppearance="light" returnKeyType="done"/>
                                 <connections>
                                     <action selector="HostEditEnd:" destination="8rJ-Kc-sve" eventType="editingDidEnd" id="2pd-tS-BZc"/>
                                 </connections>
