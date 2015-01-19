@@ -9,13 +9,25 @@ dataArray = zeros(3,600);
 dataArray(:,:) = nan;
 packsize = 4; % for (ax, ay, az) the packsize = 3
 
-% echoudp('on', 8083);
-udpObj = udp('localhost', 8081);
-set(udpObj,'InputBufferSize', 1024);
+% echoudp('on', 8081);
+udpObj = udp('192.168.191.255', 8081); % broadcast IP
+set(udpObj, 'InputBufferSize', 4096);
 set(udpObj, 'LocalPort', port); % the port for udp to receive data
 set(udpObj, 'ByteOrder', 'littleEndian');
 
 fopen(udpObj);
+% head = single(3.14159); freq = 50; packnum = 60;
+% fwrite(udpObj, 'hello'); %[head, freq, packnum], 'float');
+[str, count, msg, gramaddr, gramport] = fread(udpObj, 1);
+if count > 0 
+    disp(['received from addr: ' gramaddr ' port: ' num2str(gramport)]);
+    set(udpObj, 'RemoteHost', gramaddr);
+    fwrite(udpObj, 'hello');
+else 
+    disp('failed');
+    fclose(udpObj);
+    return
+end
 
 errorCount = 0;
 
