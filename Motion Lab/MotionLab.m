@@ -4,8 +4,8 @@ function [  ] = MotionLab( ) % ip, port )
 
 port = 8080;
 
-indexArray = zeros(1,600);
-dataArray = zeros(3,600);
+indexArray = zeros(1,1000);
+dataArray = zeros(3,1000);
 dataArray(:,:) = nan;
 packsize = 4; % for (ax, ay, az) the packsize = 3
 
@@ -16,18 +16,18 @@ set(udpObj, 'LocalPort', port); % the port for udp to receive data
 set(udpObj, 'ByteOrder', 'littleEndian');
 
 fopen(udpObj);
-% head = single(3.14159); freq = 50; packnum = 60;
-% fwrite(udpObj, 'hello'); %[head, freq, packnum], 'float');
-[str, count, msg, gramaddr, gramport] = fread(udpObj, 1);
-if count > 0 
-    disp(['received from addr: ' gramaddr ' port: ' num2str(gramport)]);
-    set(udpObj, 'RemoteHost', gramaddr);
-    fwrite(udpObj, 'hello');
-else 
-    disp('failed');
-    fclose(udpObj);
-    return
-end
+% % head = single(3.14159); freq = 50; packnum = 60;
+% % fwrite(udpObj, 'hello'); %[head, freq, packnum], 'float');
+% [str, count, msg, gramaddr, gramport] = fread(udpObj, 1);
+% if count > 0 
+%     disp(['received from addr: ' gramaddr ' port: ' num2str(gramport)]);
+%     set(udpObj, 'RemoteHost', gramaddr);
+%     fwrite(udpObj, 'hello');
+% else 
+%     disp('failed');
+%     fclose(udpObj);
+%     return
+% end
 
 errorCount = 0;
 
