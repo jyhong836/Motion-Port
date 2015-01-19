@@ -128,7 +128,7 @@ class MainViewController: UIViewController {
                 }
             }
             motionManager.deviceMotionUpdateInterval = UpdateInterval
-            motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrameXTrueNorthZVertical, toQueue: NSOperationQueue.mainQueue(), withHandler: {
+            motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrameXTrueNorthZVertical, toQueue: NSOperationQueue.currentQueue(), withHandler: {
                 // Device Motion Block
                 (dm: CMDeviceMotion!,  error:NSError!) in
                 if let deviceMotion = dm {
@@ -145,13 +145,12 @@ class MainViewController: UIViewController {
 //                    self.az = deviceMotion.userAcceleration.z * 9.81
                     
                     // user accellerate respect to the world
-                    // TODO: Why the gravity to the world is not correct?
 //                    var acc: CMAcceleration = deviceMotion.gravity
                     var acc: CMAcceleration = deviceMotion.userAcceleration
                     var rot = deviceMotion.attitude.rotationMatrix
-                    self.ax = acc.x*rot.m11 + acc.y*rot.m12 + acc.z*rot.m13
-                    self.ay = acc.x*rot.m21 + acc.y*rot.m22 + acc.z*rot.m23
-                    self.az = acc.x*rot.m31 + acc.y*rot.m32 + acc.z*rot.m33
+                    self.ax = (acc.x*rot.m11 + acc.y*rot.m21 + acc.z*rot.m31)*9.81
+                    self.ay = (acc.x*rot.m12 + acc.y*rot.m22 + acc.z*rot.m32)*9.81
+                    self.az = (acc.x*rot.m13 + acc.y*rot.m23 + acc.z*rot.m33)*9.81
                     
                     // raw gravity
 //                    self.ax = deviceMotion.gravity.x
