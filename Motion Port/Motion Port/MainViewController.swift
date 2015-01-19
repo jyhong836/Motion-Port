@@ -57,6 +57,11 @@ class MainViewController: UIViewController {
         self.closeUDP()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        motionManager.stopDeviceMotionUpdates()
+    }
+    
     // MARK: UDP
     var client: UDPClient!
     var serverIP:String = "localhost"
@@ -82,6 +87,7 @@ class MainViewController: UIViewController {
         if tabBarCtrl.clientClosed {
             return tabBarCtrl.clientClosed
         }
+//        motionManager.stopDeviceMotionUpdates()
         var success = false
         var msg = ""
         var i: Int32 = -1
@@ -101,6 +107,7 @@ class MainViewController: UIViewController {
         return tabBarCtrl.clientClosed
     }
     
+    var referAttitude: CMAttitude!
     
     func startMotionUpdate(updateFrequency freq: Int) {
         let delta: NSTimeInterval = 0.005
@@ -111,23 +118,60 @@ class MainViewController: UIViewController {
         }
         
         if motionManager.deviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = UpdateInterval
-            motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: {
-                // Device Motion Block
-                (deviceMotion: CMDeviceMotion!,  error:NSError!) in
-                if self.start_timestamp == 0 {
-                    self.start_timestamp = deviceMotion.timestamp // MARK: set start timestamp
+            if !motionManager.magnetometerAvailable {
+                println("magnetic not avaliable")
+            } else {
+                if (CMMotionManager.availableAttitudeReferenceFrames() & Int(CMAttitudeReferenceFrameXTrueNorthZVertical.value)) == 0 {
+                    println("CMAttitudeReferenceFrameXArbitraryZVertical not ok")
+                } else {
+                    println("CMAttitudeReferenceFrameXArbitraryZVertical ok ")
                 }
-                
-                self.timestamp = deviceMotion.timestamp - self.start_timestamp
-//                println("timestamp \(self.timestamp)")
-                
-                self.ax = deviceMotion.userAcceleration.x
-                self.ay = deviceMotion.userAcceleration.y
-                self.az = deviceMotion.userAcceleration.z
-                
-                if !self.tabBarCtrl.clientClosed {
-                    self.sendDataPack(/*requiredPackCount: self.tabBarCtrl.pack_num*/) //self.defaultPackNum)
+            }
+            motionManager.deviceMotionUpdateInterval = UpdateInterval
+            motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrameXTrueNorthZVertical, toQueue: NSOperationQueue.mainQueue(), withHandler: {
+                // Device Motion Block
+                (dm: CMDeviceMotion!,  error:NSError!) in
+                if let deviceMotion = dm {
+                    if self.start_timestamp == 0 {
+                        self.start_timestamp = deviceMotion.timestamp // MARK: set start timestamp
+                    }
+                    
+                    self.timestamp = deviceMotion.timestamp - self.start_timestamp
+    //                println("timestamp \(self.timestamp)")
+                    
+                    // raw user accellerate
+//                    self.ax = deviceMotion.userAcceleration.x * 9.81
+//                    self.ay = deviceMotion.userAcceleration.y * 9.81
+//                    self.az = deviceMotion.userAcceleration.z * 9.81
+                    
+                    // user accellerate respect to the world
+                    // TODO: Why the gravity to the world is not correct?
+//                    var acc: CMAcceleration = deviceMotion.gravity
+                    var acc: CMAcceleration = deviceMotion.userAcceleration
+                    var rot = deviceMotion.attitude.rotationMatrix
+                    self.ax = acc.x*rot.m11 + acc.y*rot.m12 + acc.z*rot.m13
+                    self.ay = acc.x*rot.m21 + acc.y*rot.m22 + acc.z*rot.m23
+                    self.az = acc.x*rot.m31 + acc.y*rot.m32 + acc.z*rot.m33
+                    
+                    // raw gravity
+//                    self.ax = deviceMotion.gravity.x
+//                    self.ay = deviceMotion.gravity.y
+//                    self.az = deviceMotion.gravity.z
+                    
+                    // attitude
+//                    self.ax = deviceMotion.attitude.roll
+//                    self.ay = deviceMotion.attitude.pitch
+//                    self.az = deviceMotion.attitude.yaw
+                    
+                    if !self.tabBarCtrl.clientClosed {
+                        self.sendDataPack(/*requiredPackCount: self.tabBarCtrl.pack_num*/) //self.defaultPackNum)
+                    }
+                    
+//                    if deviceMotion.magneticField.accuracy.value == -1 {
+////                        println("magnetic field not valid")
+////                        println("\(deviceMotion.magneticField.field.x)")
+//                    }
+
                 }
             })
         } else {
@@ -187,7 +231,7 @@ class MainViewController: UIViewController {
     
     func cleanUDPData() {
         if udpData.count > 0 {
-            self.udpData.removeAll(keepCapacity: true)
+            self.udpData.removeAll(keepCapacity: true) // FIXME: fatal error: moveAssignFrom with negative count
         }
     }
 
