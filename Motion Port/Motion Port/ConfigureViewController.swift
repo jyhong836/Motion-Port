@@ -10,10 +10,10 @@ import UIKit
 
 class ConfigureViewController: UIViewController, UITextFieldDelegate {
     
-    let default_hostname = "127.0.0.1"
-    let default_hostport = 8080
-    let default_packnum  = 50
-    let default_frequency = 50 // packnum should larger than freq
+    var default_hostname = "127.0.0.1"
+    var default_hostport = 8080
+    var default_packnum  = 50
+    var default_frequency = 50 // packnum should larger than freq
     
     @IBOutlet weak var hostname: UITextField!
     @IBOutlet weak var hostport: UITextField!
@@ -35,6 +35,12 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tabBarCtrl = self.tabBarController as TabBarController
+        
+        self.default_hostname = tabBarCtrl.server_ip
+        self.default_hostport = tabBarCtrl.server_port
+        self.default_packnum = tabBarCtrl.pack_num
+        self.default_frequency = tabBarCtrl.updateFreq
+        
         hostname.text = tabBarCtrl.server_ip
         hostport.text = "\(tabBarCtrl.server_port)"
         packnumVelueLabel.text = "\(tabBarCtrl.pack_num)"
@@ -64,11 +70,29 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
         hostport.resignFirstResponder()
     }
 
+    // MARK: TextField Actions
+    @IBAction func HostEditing(sender: UITextField) {
+        if (urltest.evaluateWithObject(sender.text)) {
+            sender.textColor = UIColor.blackColor()
+        } else {
+            sender.textColor = UIColor.redColor()
+        }
+    }
+    
     @IBAction func HostEditEnd(sender: UITextField) {
         if (urltest.evaluateWithObject(sender.text)) {
             tabBarCtrl.server_ip = sender.text
         } else {
-            sender.text = tabBarCtrl.server_ip
+            var alert = UIAlertController(title: "Invalid IP", message: sender.text, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func PortEditing(sender: UITextField) {
+        if (porttest.evaluateWithObject(sender.text)) {
+            sender.textColor = UIColor.blackColor()
+        } else {
             sender.textColor = UIColor.redColor()
         }
     }
@@ -79,8 +103,9 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
                 tabBarCtrl.server_port = p
             }
         } else {
-            sender.text = "\(tabBarCtrl.server_port)"
-            sender.textColor = UIColor.redColor()
+            var alert = UIAlertController(title: "Invalid port", message: sender.text, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

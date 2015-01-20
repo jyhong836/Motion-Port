@@ -161,6 +161,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" keyboardAppearance="light" returnKeyType="done"/>
                                 <connections>
                                     <action selector="HostEditEnd:" destination="8rJ-Kc-sve" eventType="editingDidEnd" id="2pd-tS-BZc"/>
+                                    <action selector="HostEditing:" destination="8rJ-Kc-sve" eventType="editingChanged" id="qcY-Zo-brr"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6b-Ha-iG9">
@@ -175,6 +176,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="light" returnKeyType="done"/>
                                 <connections>
                                     <action selector="PortEditEnd:" destination="8rJ-Kc-sve" eventType="editingDidEnd" id="3Jq-vG-yfn"/>
+                                    <action selector="PortEditing:" destination="8rJ-Kc-sve" eventType="editingChanged" id="ipb-PP-MhN"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-L8-sKK">
@@ -216,12 +218,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
-                                <rect key="frame" x="108" y="219" width="158.5" height="31"/>
-                                <connections>
-                                    <action selector="FreqValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="S4i-i2-lcg"/>
-                                </connections>
-                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lh-ZL-Vg1">
                                 <rect key="frame" x="279" y="223" width="19.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -247,6 +243,12 @@
                                     <action selector="AutoConnectTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="i0N-8S-ovf"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
+                                <rect key="frame" x="109" y="219" width="158.5" height="31"/>
+                                <connections>
+                                    <action selector="FreqValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="S4i-i2-lcg"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -271,6 +273,7 @@
                             <constraint firstItem="4Ew-Cx-ccd" firstAttribute="leading" secondItem="c6b-Ha-iG9" secondAttribute="trailing" constant="47" id="agp-gJ-zuj"/>
                             <constraint firstItem="qE4-mf-CSv" firstAttribute="centerY" secondItem="fUY-Uf-J5q" secondAttribute="centerY" constant="0.75" id="bNU-kc-ovj"/>
                             <constraint firstItem="dYS-Et-OZi" firstAttribute="top" secondItem="4Ew-Cx-ccd" secondAttribute="bottom" constant="24" id="d4p-tw-2td"/>
+                            <constraint firstItem="nqZ-V2-egj" firstAttribute="leading" secondItem="qE4-mf-CSv" secondAttribute="leading" id="dpA-Kz-U2c"/>
                             <constraint firstItem="qE4-mf-CSv" firstAttribute="width" secondItem="nqZ-V2-egj" secondAttribute="width" id="ecz-zs-hji"/>
                             <constraint firstItem="nqZ-V2-egj" firstAttribute="top" secondItem="qE4-mf-CSv" secondAttribute="bottom" constant="24" id="hDS-az-jkL"/>
                             <constraint firstItem="fUY-Uf-J5q" firstAttribute="top" secondItem="dYS-Et-OZi" secondAttribute="bottom" constant="28" id="kQZ-1M-tKg"/>

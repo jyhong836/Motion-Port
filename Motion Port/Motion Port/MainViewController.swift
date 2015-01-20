@@ -193,6 +193,10 @@ class MainViewController: UIViewController {
                     println("send index failed: \(msg)")
 //                    if msg == "socket not open" {
                         self.closeUDP()
+                    var alertCtrl = UIAlertController(title: "Send data FAILED", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+                    var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                    alertCtrl.addAction(okAction)
+                    self.presentViewController(alertCtrl, animated: true, completion: nil)
 //                    }
                     return
                 }
