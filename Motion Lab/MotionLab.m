@@ -1,11 +1,14 @@
-function [  ] = MotionLab( ) % ip, port )
+function [ dataY, timeX ] = MotionLab( ) % ip, port )
 %MOTIONLAB, motion port server for matlab
 %   The Motion Port App will transmit data to this func
 
 port = 8080;
 
-indexArray = zeros(1,1000);
-dataArray = zeros(3,1000);
+packnum = 100;
+indexArray = zeros(1,packnum);
+dataArray = zeros(3,packnum);
+x = zeros(1,packnum + 1);
+v = zeros(1,packnum + 1);
 dataArray(:,:) = nan;
 packsize = 4; % for (ax, ay, az) the packsize = 3
 
@@ -64,6 +67,13 @@ try
         else
             disp(['data size: ' num2str(sizeOfData) ' pack num: ' num2str(sizeOfData/packsize)]);
         end
+        if sizeOfData/packsize ~= packnum
+            packnum = sizeOfData/packsize;
+            indexArray = zeros(1,packnum);
+            dataArray = zeros(3,packnum);
+            x = zeros(1,packnum + 1);
+            v = zeros(1,packnum + 1);
+        end
         
         % get data
         [data, count] = fread(udpObj,sizeOfData,'float');
@@ -78,13 +88,18 @@ try
             indexArray = [indexArray(2:end), data(1 + (i-1)*packsize)]; %index - (sizeOfData/packsize - i)];
             dataArray  = [dataArray(:,2:end), data((2:4) + (i-1)*packsize)];
         end
+        % calcluations 
+        dataM = getDataM(dataArray, 0.14973);
+        [x,v] = getXV(dataM, [x(:,end),v(:,end)], indexArray);
+        plotRout(x(1,:),x(2,:),x(3,:));
+        hold on
         % draw
-        plot(indexArray, dataArray);
-        axis tight
+%         plot(indexArray, dataArray);
+%         axis tight
         drawnow
         
         if sizeOfData/packsize > 10 
-            pause(1) % wait for data ready
+            pause(0.5) % wait for data ready
         end
     end
 catch e
@@ -94,6 +109,9 @@ end
 % echoudp('off');
 fclose(udpObj);
 
+
+dataY = dataArray;
+timeX = indexArray;
 
 end
 
