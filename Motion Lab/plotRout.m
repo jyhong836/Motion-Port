@@ -8,7 +8,7 @@ xlabel('x');
 ylabel('y');
 zlabel('z');
 % h.color = [0    0.4470    0.7410];
-axis([-2 2 -2 2 -1 1 0 1]);
+% axis([-1 1 -1 1 -1 1 0 1]);
 grid on
 
 end

@@ -92,20 +92,28 @@ try
         ar = getDataM(dataArray, 0.14973);
         ae = ar;
         ae(:,2:(end-1)) = (ar(:,1:(end-2)) + ar(:,2:(end-1)) + ar(:,3:end))/3;
+        ae(abs(ae)<0.035) = 0;
         [x,v] = getXV(ae, [x(:,end),v(:,end)], indexArray);
-        subplot(2,2,1); % 1
+        % 1 speed
+        subplot(2,2,1); 
         plot(v');
         axis tight
         title speed
-        subplot(2,2,2); % 2
-        plot(indexArray, ae);
+        legend x y z
+        % 2 acceleration
+        subplot(2,2,2); 
+        plot(indexArray - indexArray(1), ae);
         axis tight
         title acceleration
-        subplot(2,2,3); % 3
+        legend x y z
+        % 3 location
+        subplot(2,2,3); 
         plot(x');
         axis tight
         title location
-        subplot(2,2,4); % 4
+        legend x y z
+        % 4 router
+        subplot(2,2,4); 
         plotRout(x(1,:),x(2,:),x(3,:));
         hold on
         % draw
