@@ -29,6 +29,7 @@
  */
 
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -101,7 +102,12 @@ int yudpsocket_sentto(int socket_fd,char *msg,int len, char *toaddr, int topotr)
     addr.sin_port=htons(topotr);
     addr.sin_addr.s_addr=inet_addr(toaddr);
     int sendlen=(int)sendto(socket_fd, msg, len, 0, (struct sockaddr *)&addr, addrlen);
+//    printf("ERROR: %s\n", strerror(errno));
     return sendlen;
+}
+// get error msg corresponding to errno
+int get_error_str(char *strptr) {
+    return sprintf(strptr, "%s", strerror(errno));
 }
 
 

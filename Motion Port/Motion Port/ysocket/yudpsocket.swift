@@ -36,6 +36,7 @@ import Foundation
 @asmname("yudpsocket_client") func c_yudpsocket_client() -> Int32
 @asmname("yudpsocket_get_server_ip") func c_yudpsocket_get_server_ip(host:UnsafePointer<Int8>,ip:UnsafePointer<Int8>) -> Int32
 @asmname("yudpsocket_sentto") func c_yudpsocket_sentto(fd:Int32,buff:UnsafePointer<UInt8>,len:Int32,ip:UnsafePointer<Int8>,port:Int32) -> Int32
+@asmname("get_error_str") func c_get_error_str(buff: UnsafeMutablePointer<CChar>) -> Int32
 
 public class UDPClient: YSocket {
     public override init(addr a:String,port p:Int){
@@ -79,7 +80,11 @@ public class UDPClient: YSocket {
             if sendsize==Int32(strlen(s)){
                 return (true,"send success")
             }else{
-                return (false,"send error")
+                var errbuf = UnsafeMutablePointer<CChar>.alloc(128)
+                c_get_error_str(errbuf)
+                var msg = String.fromCString(errbuf)
+                
+                return (false,msg!)
             }
         }else{
             return (false,"socket not open")
@@ -97,7 +102,11 @@ public class UDPClient: YSocket {
             if sendsize==Int32(d.length){
                 return (true,"send success")
             }else{
-                return (false,"send error")
+                var errbuf = UnsafeMutablePointer<CChar>.alloc(128)
+                c_get_error_str(errbuf)
+                var msg = String.fromCString(errbuf)
+                
+                return (false,msg!)
             }
         }else{
             return (false,"socket not open")
@@ -109,7 +118,11 @@ public class UDPClient: YSocket {
             self.fd=nil
             return (true,"close success")
         }else{
-            return (false,"socket not open")
+            var errbuf = UnsafeMutablePointer<CChar>.alloc(128)
+            c_get_error_str(errbuf)
+            var msg = String.fromCString(errbuf)
+            
+            return (false,msg!)
         }
     }
     //TODO add multycast and boardcast
