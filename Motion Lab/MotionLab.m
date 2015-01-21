@@ -91,6 +91,18 @@ try
         % calcluations 
         dataM = getDataM(dataArray, 0.14973);
         [x,v] = getXV(dataM, [x(:,end),v(:,end)], indexArray);
+        subplot(2,2,1); % 1
+        plot(v');
+        axis tight
+        title speed
+        subplot(2,2,2); % 2
+        plot(indexArray, dataArray);
+        axis tight
+        title acceleration
+        subplot(2,2,3); % 3
+        plot(x');
+        title location
+        subplot(2,2,4); % 4
         plotRout(x(1,:),x(2,:),x(3,:));
         hold on
         % draw
