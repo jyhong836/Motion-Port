@@ -115,8 +115,6 @@ class MainViewController: UIViewController {
         return tabBarCtrl.clientClosed
     }
     
-    var referAttitude: CMAttitude!
-    
     func startMotionUpdate(updateFrequency freq: Int) -> Bool {
         let delta: NSTimeInterval = 0.005
         let UpdateInterval: NSTimeInterval = 1 / Double(freq) //accelerometerMin + delta * Double(slideValue)
@@ -128,12 +126,8 @@ class MainViewController: UIViewController {
         if motionManager.deviceMotionAvailable {
             if !motionManager.magnetometerAvailable {
                 println("magnetic not avaliable")
-            } else {
-                if (CMMotionManager.availableAttitudeReferenceFrames() & Int(CMAttitudeReferenceFrameXTrueNorthZVertical.value)) == 0 {
+            } else if (CMMotionManager.availableAttitudeReferenceFrames() & Int(CMAttitudeReferenceFrameXTrueNorthZVertical.value)) == 0 {
                     println("CMAttitudeReferenceFrameXArbitraryZVertical not ok")
-                } else {
-                    println("CMAttitudeReferenceFrameXArbitraryZVertical ok ")
-                }
             }
             motionManager.deviceMotionUpdateInterval = UpdateInterval
             motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrameXTrueNorthZVertical, toQueue: NSOperationQueue.currentQueue(), withHandler: {
@@ -244,7 +238,7 @@ class MainViewController: UIViewController {
     
     func cleanUDPData() {
         if udpData.count > 0 {
-            self.udpData.removeAll(keepCapacity: true) // FIXME: fatal error: moveAssignFrom with negative count
+            self.udpData.removeAll(keepCapacity: true)
         }
     }
 

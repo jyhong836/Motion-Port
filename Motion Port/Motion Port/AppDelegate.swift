@@ -35,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let ctrl = rootViewCtrl {
             NSLog("store configure")
             ctrl.storeConfigure()
+            var mainView = ctrl.viewControllers![0] as MainViewController
+            mainView.closeUDP()
         }
     }
 
