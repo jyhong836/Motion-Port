@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Main-->
+        <!--Main View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="MainViewController" customModule="Motion_Port" customModuleProvider="target" sceneMemberID="viewController">
@@ -133,7 +133,9 @@
                             <constraint firstItem="2dM-WJ-v0d" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" constant="140" id="zzl-bo-8T3"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Main" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="" image="fa-bullseye" id="acW-dT-cKf">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="AttributeTable" destination="4iS-e6-p93" id="lmn-Lt-Oxa"/>
                         <outlet property="UDPSwitchBut" destination="2dM-WJ-v0d" id="Cpw-nN-LWu"/>
@@ -234,7 +236,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-2O-oUj">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-2O-oUj">
                                 <rect key="frame" x="113" y="460" width="95" height="30"/>
                                 <state key="normal" title="Auto Connect">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -243,7 +245,7 @@
                                     <action selector="AutoConnectTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="i0N-8S-ovf"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="90" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
                                 <rect key="frame" x="109" y="219" width="158.5" height="31"/>
                                 <connections>
                                     <action selector="FreqValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="S4i-i2-lcg"/>
@@ -287,7 +289,9 @@
                             <constraint firstItem="qE4-mf-CSv" firstAttribute="centerY" secondItem="Qfc-r3-ApP" secondAttribute="centerY" constant="0.5" id="z9c-sN-uyC"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="" image="fa-wrench" id="cPa-gy-q4n">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="freqSlider" destination="nqZ-V2-egj" id="dqZ-C2-fub"/>
                         <outlet property="freqValueLabel" destination="6Lh-ZL-Vg1" id="gJz-8Y-5oh"/>
@@ -322,7 +326,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="fa-bullseye" width="32" height="31"/>
+        <image name="fa-wrench" width="30" height="31"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
