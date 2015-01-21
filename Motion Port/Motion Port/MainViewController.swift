@@ -182,6 +182,8 @@ class MainViewController: UIViewController {
         if udpData.count == self.tabBarCtrl.pack_num * packSize {
             self.packCount = self.dataIndex / self.tabBarCtrl.pack_num
             indexForUDP = Int32(dataIndex)
+            /* prepare for ending data */
+            var dtCount = Int32(self.udpData.count)
             let dt: NSData = NSData(bytes: self.udpData, length: sizeof(Float)*self.udpData.count)
             self.cleanUDPData()
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
@@ -203,7 +205,6 @@ class MainViewController: UIViewController {
                     return
                 }
                 /* send size of data */
-                var dtCount = Int32(self.udpData.count)
                 (success, msg) = self.client.send(data: NSData(bytes: &dtCount, length: sizeof(Int32)))//[UInt8(self.udpData.count)])
                 if !success {
                     println("send data size failed: \(msg)")
