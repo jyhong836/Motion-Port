@@ -193,14 +193,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-mf-CSv">
-                                <rect key="frame" x="109" y="165" width="149.5" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-mf-CSv">
+                                <rect key="frame" x="109" y="165" width="149" height="31"/>
                                 <connections>
+                                    <action selector="PackNumTouchUpInside:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ntc-Hz-89z"/>
                                     <action selector="PackNumValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="epv-p0-1nZ"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUY-Uf-J5q">
-                                <rect key="frame" x="270" y="169" width="29" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUY-Uf-J5q">
+                                <rect key="frame" x="269.5" y="169" width="29.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -220,8 +221,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lh-ZL-Vg1">
-                                <rect key="frame" x="270" y="223" width="28.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lh-ZL-Vg1">
+                                <rect key="frame" x="269.5" y="223" width="29" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -245,9 +246,11 @@
                                     <action selector="AutoConnectTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="i0N-8S-ovf"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="90" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
-                                <rect key="frame" x="109" y="219" width="149.5" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
+                                <rect key="frame" x="109" y="219" width="149" height="31"/>
                                 <connections>
+                                    <action selector="FreqEditEnd:" destination="8rJ-Kc-sve" eventType="editingDidEnd" id="JEh-zn-Ojt"/>
+                                    <action selector="FreqTouchUpInside:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Yjl-dt-tfr"/>
                                     <action selector="FreqValueChg:" destination="8rJ-Kc-sve" eventType="valueChanged" id="S4i-i2-lcg"/>
                                 </connections>
                             </slider>
@@ -284,7 +287,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="fUY-Uf-J5q" secondAttribute="trailing" constant="5" id="sAx-S6-3HD"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="JAc-2O-oUj" secondAttribute="bottom" constant="29" id="uaD-vD-RLm"/>
                             <constraint firstItem="dYS-Et-OZi" firstAttribute="leading" secondItem="zlf-L8-sKK" secondAttribute="trailing" constant="51" id="udL-DR-qJS"/>
-                            <constraint firstItem="6Lh-ZL-Vg1" firstAttribute="leading" secondItem="nqZ-V2-egj" secondAttribute="trailing" constant="13.5" id="wUl-et-HNr"/>
+                            <constraint firstItem="6Lh-ZL-Vg1" firstAttribute="leading" secondItem="nqZ-V2-egj" secondAttribute="trailing" constant="14" id="wUl-et-HNr"/>
                             <constraint firstItem="Qfc-r3-ApP" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="xtj-rQ-w9W"/>
                             <constraint firstItem="qE4-mf-CSv" firstAttribute="centerY" secondItem="Qfc-r3-ApP" secondAttribute="centerY" constant="0.5" id="z9c-sN-uyC"/>
                         </constraints>

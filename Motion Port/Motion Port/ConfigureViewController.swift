@@ -108,15 +108,29 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
+    // pack num
     @IBAction func PackNumValueChg(sender: UISlider) {
         self.packnumVelueLabel.text = "\(Int(sender.value))"
-        self.tabBarCtrl.pack_num = Int(sender.value)
     }
-    
+    @IBAction func PackNumTouchUpInside(sender: UISlider) {
+        self.tabBarCtrl.pack_num = Int(sender.value)
+        if Int(sender.value) < tabBarCtrl.updateFreq  {
+            var alert = UIAlertController(title: "WARN", message: "Pack num is too low, it should higher than update frequency.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    // updae freq
     @IBAction func FreqValueChg(sender: UISlider) {
         self.freqValueLabel.text = "\(Int(sender.value))"
+    }
+    @IBAction func FreqTouchUpInside(sender: UISlider) {
         self.tabBarCtrl.updateFreq = Int(sender.value)
+        if Int(sender.value) > tabBarCtrl.pack_num {
+            var alert = UIAlertController(title: "WARN", message: "Update frequency is too high, which should lower than pack num.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
