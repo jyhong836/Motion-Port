@@ -193,7 +193,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-mf-CSv">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="qE4-mf-CSv">
                                 <rect key="frame" x="109" y="165" width="149" height="31"/>
                                 <connections>
                                     <action selector="PackNumTouchUpInside:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ntc-Hz-89z"/>
@@ -246,7 +246,7 @@
                                     <action selector="AutoConnectTapped:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="i0N-8S-ovf"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="10" maxValue="95" translatesAutoresizingMaskIntoConstraints="NO" id="nqZ-V2-egj">
                                 <rect key="frame" x="109" y="219" width="149" height="31"/>
                                 <connections>
                                     <action selector="FreqEditEnd:" destination="8rJ-Kc-sve" eventType="editingDidEnd" id="JEh-zn-Ojt"/>

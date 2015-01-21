@@ -114,8 +114,8 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func PackNumTouchUpInside(sender: UISlider) {
         self.tabBarCtrl.pack_num = Int(sender.value)
-        if Int(sender.value) < tabBarCtrl.updateFreq  {
-            var alert = UIAlertController(title: "WARN", message: "Pack num is too low, it should higher than update frequency.", preferredStyle: UIAlertControllerStyle.Alert)
+        if Int(sender.value)*2 < tabBarCtrl.updateFreq  {
+            var alert = UIAlertController(title: "WARN", message: "Pack num is too low.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -126,8 +126,8 @@ class ConfigureViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func FreqTouchUpInside(sender: UISlider) {
         self.tabBarCtrl.updateFreq = Int(sender.value)
-        if Int(sender.value) > tabBarCtrl.pack_num {
-            var alert = UIAlertController(title: "WARN", message: "Update frequency is too high, which should lower than pack num.", preferredStyle: UIAlertControllerStyle.Alert)
+        if Int(sender.value) > tabBarCtrl.pack_num*2 {
+            var alert = UIAlertController(title: "WARN", message: "Update frequency is too high.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
