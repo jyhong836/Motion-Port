@@ -182,6 +182,8 @@ class MainViewController: UIViewController {
         if udpData.count == self.tabBarCtrl.pack_num * packSize {
             self.packCount = self.dataIndex / self.tabBarCtrl.pack_num
             indexForUDP = Int32(dataIndex)
+            let dt: NSData = NSData(bytes: self.udpData, length: sizeof(Float)*self.udpData.count)
+            self.cleanUDPData()
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
                 () -> Void in
                 //                    let dataStr = "ax:\(self.ax);ay:\(self.ay);az:\(self.az)"
@@ -208,11 +210,8 @@ class MainViewController: UIViewController {
                     return
                 }
                 /* send data */
-                let dt: NSData = NSData(bytes: self.udpData, length: sizeof(Float)*self.udpData.count)
-                
                 (success, msg) = self.client.send(data: dt)
                 if success {
-                    self.cleanUDPData()
 //                    self.AttributeTable.setNeedsDisplay() // Update Table View
                     dispatch_async(dispatch_get_main_queue(), {self.AttributeTable.reloadData()})
                 }
