@@ -89,18 +89,21 @@ try
             dataArray  = [dataArray(:,2:end), data((2:4) + (i-1)*packsize)];
         end
         % calcluations 
-        dataM = getDataM(dataArray, 0.14973);
-        [x,v] = getXV(dataM, [x(:,end),v(:,end)], indexArray);
+        ar = getDataM(dataArray, 0.14973);
+        ae = ar;
+        ae(:,2:(end-1)) = (ar(:,1:(end-2)) + ar(:,2:(end-1)) + ar(:,3:end))/3;
+        [x,v] = getXV(ae, [x(:,end),v(:,end)], indexArray);
         subplot(2,2,1); % 1
         plot(v');
         axis tight
         title speed
         subplot(2,2,2); % 2
-        plot(indexArray, dataArray);
+        plot(indexArray, ae);
         axis tight
         title acceleration
         subplot(2,2,3); % 3
         plot(x');
+        axis tight
         title location
         subplot(2,2,4); % 4
         plotRout(x(1,:),x(2,:),x(3,:));
