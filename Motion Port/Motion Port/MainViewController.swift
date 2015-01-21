@@ -55,11 +55,11 @@ class MainViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillAppear(animated)
         self.closeUDP()
+        motionManager.stopDeviceMotionUpdates()
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        motionManager.stopDeviceMotionUpdates()
     }
     
     // MARK: UDP
@@ -74,13 +74,21 @@ class MainViewController: UIViewController {
     var packCount = 0
     var indexForUDP: Int32 = 0
 
-    func openUDP() {
+    func openUDP() -> Bool {
         client = UDPClient(addr: self.serverIP, port: self.port)
         tabBarCtrl.clientClosed = false
         NSLog("open UDP")
-        startMotionUpdate(updateFrequency: tabBarCtrl.updateFreq)
-        // TODO: add a button to start the update. If not updating do not open the udp!
-        NSLog("start motion update")
+        if startMotionUpdate(updateFrequency: tabBarCtrl.updateFreq) {
+            // TODO: add a button to start the update. If not updating do not open the udp!
+            NSLog("start motion update")
+        } else {
+            client.close()
+            tabBarCtrl.clientClosed = true
+            var alert = UIAlertController(title: "", message: "The Device Motion can not be started", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        return !tabBarCtrl.clientClosed
     }
     
     func closeUDP() -> Bool {
@@ -109,7 +117,7 @@ class MainViewController: UIViewController {
     
     var referAttitude: CMAttitude!
     
-    func startMotionUpdate(updateFrequency freq: Int) {
+    func startMotionUpdate(updateFrequency freq: Int) -> Bool {
         let delta: NSTimeInterval = 0.005
         let UpdateInterval: NSTimeInterval = 1 / Double(freq) //accelerometerMin + delta * Double(slideValue)
         if UpdateInterval < accelerometerMin {
@@ -173,8 +181,10 @@ class MainViewController: UIViewController {
 
                 }
             })
+            return true
         } else {
             NSLog("device motion is not available")
+            return false
         }
     }
     
@@ -241,8 +251,9 @@ class MainViewController: UIViewController {
     @IBAction func UDPSwitchTapped(sender: AnyObject) {
         let but = sender as UIButton
         if tabBarCtrl.clientClosed {
-            openUDP()
-            but.setTitle("Close", forState: .Normal)
+            if (openUDP()) {
+                but.setTitle("Close", forState: .Normal)
+            }
         } else {
             closeUDP()
         }

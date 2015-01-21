@@ -28,6 +28,25 @@ class TabBarController: UITabBarController/*, UITabBarControllerDelegate*/ {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func storeConfigure() {
+        arch.setObject(server_ip, forKey: "server_ip")
+        arch.setInteger(server_port, forKey: "server_port")
+        arch.setInteger(pack_num, forKey: "pack_num")
+        arch.setInteger(updateFreq, forKey: "updateFreq")
+    }
+    
+    func loadConfigure() {
         if let obj: AnyObject = arch.objectForKey("server_ip") {
             server_ip = obj as String
         } else {
@@ -36,19 +55,6 @@ class TabBarController: UITabBarController/*, UITabBarControllerDelegate*/ {
         server_port = arch.integerForKey("server_port")
         pack_num = arch.integerForKey("pack_num")
         updateFreq = arch.integerForKey("updateFreq")
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        arch.setObject(server_ip, forKey: "server_ip")
-        arch.setInteger(server_port, forKey: "server_port")
-        arch.setInteger(pack_num, forKey: "pack_num")
-        arch.setInteger(updateFreq, forKey: "updateFreq")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 //    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
